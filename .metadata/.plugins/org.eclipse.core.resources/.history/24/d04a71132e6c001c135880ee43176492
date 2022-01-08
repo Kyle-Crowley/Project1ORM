@@ -1,0 +1,15 @@
+package com.revature;
+
+import com.revature.dao.Session;
+import com.revature.util.ConfigurationUtil;
+
+public class App 
+{
+	public static void main()
+	{
+		//to test we are skipping over the dao layer to check that the library imports work
+		Session newSession = ConfigurationUtil.getSession();
+		newSession.doSomething();
+	}
+}
+ 

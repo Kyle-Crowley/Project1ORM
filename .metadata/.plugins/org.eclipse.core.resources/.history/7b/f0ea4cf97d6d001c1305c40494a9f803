@@ -1,0 +1,151 @@
+package com.revature.util;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+public class Configuration 
+{
+	//read the config file and define all the default parameters and instantiate the session factory
+	private static final SessionFactory thisSessionFactory = new SessionFactory();
+	//configuration variables
+	private String databaseType="";
+	private String databaseDriver="";
+	private String databaseURL="";
+	private String databaseUser="";
+	private String databasePassword="";
+	//constructor
+	
+	
+	public Configuration() 
+	{
+		super();
+	}
+
+
+	public Configuration configure(String filename)
+	{
+		try 
+		{
+			//XML reader overhead stuff, open file and prepare for it to be readable
+			File file = new File(filename);
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document doc = db.parse(file);
+			doc.getDocumentElement().normalize();
+			//print out the root element for debug, get list of configurable elements in the file
+			//most files will only have one configurable element,session factory
+			System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+			NodeList nodeList = doc.getElementsByTagName("configurable");
+			for(int i = 0; i < nodeList.getLength();i++)
+			{
+				Node node = nodeList.item(i);
+				System.out.println("Node: " + node.getNodeName());
+				if(node.getNodeType() == Node.ELEMENT_NODE)
+				{
+					Element e = (Element) node;
+					System.out.println(e.getTextContent());
+				}
+			}
+			
+			
+		} catch (ParserConfigurationException e) 
+		{
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+//		Properties prop = new Properties();
+//		try
+//		{
+//			prop.loadFromXML(new FileInputStream(filename));
+//			this.databaseType = prop.getProperty("databaseType");
+//			this.databaseDriver = prop.getProperty("databaseDriver");
+//			this.databaseURL = prop.getProperty("databaseURL");
+//			this.databaseUser = prop.getProperty("databaseUser");
+//			this.databasePassword = prop.getProperty("databasePassword");
+//		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+		return this;
+	}
+
+	//getSessionFactory returns the instantiated SessionFactory object
+	public SessionFactory getSessionFactory()
+	{
+		return thisSessionFactory;
+	}
+
+
+	public String getDatabaseType() {
+		return databaseType;
+	}
+
+
+	public void setDatabaseType(String databaseType) {
+		this.databaseType = databaseType;
+	}
+
+
+	public String getDatabaseDriver() {
+		return databaseDriver;
+	}
+
+
+	public void setDatabaseDriver(String databaseDriver) {
+		this.databaseDriver = databaseDriver;
+	}
+
+
+	public String getDatabaseURL() {
+		return databaseURL;
+	}
+
+
+	public void setDatabaseURL(String databaseURL) {
+		this.databaseURL = databaseURL;
+	}
+
+
+	public String getDatabaseUser() {
+		return databaseUser;
+	}
+
+
+	public void setDatabaseUser(String databaseUser) {
+		this.databaseUser = databaseUser;
+	}
+
+
+	public String getDatabasePassword() {
+		return databasePassword;
+	}
+
+
+	public void setDatabasePassword(String databasePassword) {
+		this.databasePassword = databasePassword;
+	}
+	
+	
+}

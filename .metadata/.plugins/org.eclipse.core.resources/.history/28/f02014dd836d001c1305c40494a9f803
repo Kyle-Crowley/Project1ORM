@@ -1,0 +1,19 @@
+package com.revature.dao;
+
+public class Session 
+{
+	public Session()
+	{
+		
+	}
+	
+	public void doSomething()
+	{
+		System.out.println("This session just did something");
+	}
+	
+	public void createSession()
+	{
+		
+	}
+}

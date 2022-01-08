@@ -1,0 +1,46 @@
+package com.revature.reflection;
+
+import java.lang.reflect.Field;
+
+public class ClassInspector
+{
+	public static void inspectClass(Class<?> metaClass)
+	{
+		listPublicConstructors(metaClass);
+		listNonPublicConstructors(metaClass);
+		listPublicFields(metaClass);
+		listNonPublicFields(metaClass);
+		listPublicMethods(metaClass);
+		listDeclaredMethods(metaClass);
+	}
+	
+	public static void listPublicConstructors(Class<?> metaClass)
+	{
+		
+	}
+	
+	public static void listNonPublicConstructors(Class<?> metaClass)
+	{
+		
+	}
+	
+	public static void listPublicFields(Class<?> metaClass)
+	{
+		Field[] fields = metaClass.getFields();
+	}
+	
+	public static void listNonPublicFields(Class<?> metaClass)
+	{
+		
+	}
+	
+	public static void listPublicMethods(Class<?> metaClass)
+	{
+		
+	}
+	
+	public static void listDeclaredMethods(Class<?> metaClass)
+	{
+		
+	}
+}

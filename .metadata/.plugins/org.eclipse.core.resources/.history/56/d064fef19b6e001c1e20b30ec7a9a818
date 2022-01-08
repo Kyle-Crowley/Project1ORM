@@ -1,0 +1,54 @@
+package com.revature.reflection;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+
+public class ClassInspector
+{
+	public static void inspectClass(Class<?> metaClass)
+	{
+		listPublicConstructors(metaClass);
+		listNonPublicConstructors(metaClass);
+		listPublicFields(metaClass);
+		listNonPublicFields(metaClass);
+		listPublicMethods(metaClass);
+		listDeclaredMethods(metaClass);
+	}
+	
+	public static void listPublicConstructors(Class<?> metaClass)
+	{
+		System.out.println("Printing the public constructors of the " + metaClass.getName());
+		Constructor<?>[] constructors = metaClass.getConstructors();
+		for (Constructor<?> constructor : constructors) {
+			System.out.println("\tConstructor name: " + constructor.getName());
+			System.out.println("\tConstructor param types: " + Arrays.toString(constructor.getParameterTypes()) + "\n");
+			System.out.println();
+		}
+	}
+	
+	public static void listNonPublicConstructors(Class<?> metaClass)
+	{
+		
+	}
+	
+	public static void listPublicFields(Class<?> metaClass)
+	{
+		Field[] fields = metaClass.getFields();
+	}
+	
+	public static void listNonPublicFields(Class<?> metaClass)
+	{
+		
+	}
+	
+	public static void listPublicMethods(Class<?> metaClass)
+	{
+		
+	}
+	
+	public static void listDeclaredMethods(Class<?> metaClass)
+	{
+		
+	}
+}

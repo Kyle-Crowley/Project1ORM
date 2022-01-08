@@ -1,0 +1,29 @@
+package com.revature.util;
+
+import com.revature.dao.Session;
+
+public class ConfigurationUtil 
+{
+	//User instantiates a Configuration class in order to create a session factory
+	private static Configuration config = new Configuration().configure("MyApplication/configuration.xml");
+	
+	//User uses the session factory reference to create a session
+	private static SessionFactory mySF = config.getSessionFactory();
+	private static Session thisSession;
+	
+	//User SHOULD make their own member functions for creating,retrieving and closing session objects
+	public static Session getSession()
+	{
+		if(thisSession == null)
+		{
+			thisSession.doSomething();
+			//thisSession.createSession();
+		}
+		return thisSession;
+	}
+	
+	public static void closeSession()
+	{
+		//thisSession.close();
+	}
+}

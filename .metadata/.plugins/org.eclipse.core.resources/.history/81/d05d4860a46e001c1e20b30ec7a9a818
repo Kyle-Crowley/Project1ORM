@@ -1,0 +1,5 @@
+databaseType=""
+databaseDriver=""
+databaseURL="jdbc:postgresql://localhost:5432/postgres?currentSchema=kylec"
+databaseUser="postgres"
+databasePassword="postgres"

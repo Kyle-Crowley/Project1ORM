@@ -1,0 +1,6 @@
+package com.revature.annotations;
+
+public class ForeignKeyColumn 
+{
+	
+}

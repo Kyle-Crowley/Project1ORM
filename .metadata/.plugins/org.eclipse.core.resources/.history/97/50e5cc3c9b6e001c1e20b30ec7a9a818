@@ -1,0 +1,14 @@
+package com.revature.reflection;
+
+public class ClassInspector
+{
+	public static void inspectClass(Class<?> metaClass)
+	{
+		listPublicConstructors(metaClass);
+		listNonPublicConstructors(metaClass);
+		listPublicFields(metaClass);
+		listNonPublicFields(metaClass);
+		listPublicMethods(metaClass);
+		listDeclaredMethods(metaClass);
+	}
+}

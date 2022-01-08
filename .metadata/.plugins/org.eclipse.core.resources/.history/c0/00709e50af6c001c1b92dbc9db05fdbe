@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<framework-config>
+	<configurable>
+		<session-factory>
+			<property name="databaseType">Postgres</property>
+			<property name="databaseDriver">org.postgresql.Driver</property>
+			<property name="databaseURL">jdbc:postgresql://localhost:5432/postgres?public</property>
+			<property name="databaseUser">postgres</property>
+			<property name="databasePassword">postgres</property>
+		</session-factory>
+	</configurable>
+
+
+</framework-config>

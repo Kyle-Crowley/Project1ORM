@@ -1,0 +1,36 @@
+package com.revature.util.metamodels;
+
+import java.util.List;
+
+import com.revature.annotations.Entity;
+
+public class MetaModel<T>
+{
+	private Class<?> metaClass;
+	private PrimaryKeyField primaryKeyField; 
+	private List<ColumnField> columnField;
+	private List<ForeignKeyField> foreignKeyField;
+	
+	
+	
+	public static MetaModel<Class<?>> of(Class<?> metaClass) 
+	{
+		
+		// we check that the class we're passing through has the @Entity annotation
+		if (metaClass.getAnnotation(Entity.class) == null) 
+		{
+			throw new IllegalStateException("Cannot create MetaModel object! Provided class "
+					+ metaClass.getName() + " is not annotated with @Entity");
+			
+		}
+		// if so....return a new MetaModel object of the class passed through 
+		return new MetaModel<>(metaClass);
+	}
+	
+	public MetaModel(Class<?> metaClass)
+	{
+		this.metaClass = metaClass;
+		this.columnField = new LinkedList<>();
+		this.foreignKeyField = new LinkedList<>();
+	}
+}

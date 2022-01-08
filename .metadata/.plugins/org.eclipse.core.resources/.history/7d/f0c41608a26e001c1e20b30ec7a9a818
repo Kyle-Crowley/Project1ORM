@@ -1,0 +1,6 @@
+package com.revature.util.metamodels;
+
+public class ForeignKeyField
+{
+
+}

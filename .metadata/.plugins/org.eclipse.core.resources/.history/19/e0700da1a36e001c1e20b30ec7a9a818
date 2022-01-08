@@ -1,0 +1,11 @@
+package com.revature.models;
+
+public class TestUserClass
+{
+	private int primaryId;
+	private int balance;
+	private String username;
+	private String password;
+	
+	
+}

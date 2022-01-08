@@ -1,0 +1,11 @@
+package com.revature.util;
+
+import java.util.List;
+
+import com.revature.util.metamodels.MetaModel;
+
+
+public class EntityHandler
+{
+	private List<MetaModel<Class<?>>> metaModelList;
+}

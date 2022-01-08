@@ -1,0 +1,22 @@
+package com.revature.util;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import com.revature.util.metamodels.MetaModel;
+
+
+public class EntityHandler
+{
+	private List<MetaModel<Class<?>>> metaModelList;
+	
+	public EntityHandler addAnnotatedClass(Class metaClass)
+	{
+		if(metaModelList == null)
+			metaModelList = new LinkedList<>();
+		
+		metaModelList.add(MetaModel.of(metaClass));
+		
+		return this;
+	}
+}

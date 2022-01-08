@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configurable>
+	<session-factory>
+		<property name="databaseType"></property>
+		<property name="databaseDriver"></property>
+		<property name="databaseURL"></property>
+		<property name="databaseUser"></property>
+		<property name="databasePassword"></property>
+	</session-factory>
+</configurable>

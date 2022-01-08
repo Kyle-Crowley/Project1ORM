@@ -1,0 +1,39 @@
+package com.revature.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Session 
+{
+	private static Connection conn = null;
+	
+	public Session()
+	{
+		super();
+	}
+	
+	public void doSomething()
+	{
+		System.out.println("This session just did something");
+	}
+	
+	public void createSession(String databaseURL,String databaseUser,String databasePassword)
+	{
+		try 
+		{
+			if(conn != null && !conn.isClosed())
+			{
+				return;
+			}
+			else
+			{
+				conn = DriverManager.getConnection(databaseURL,databaseUser,databasePassword);
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+}
