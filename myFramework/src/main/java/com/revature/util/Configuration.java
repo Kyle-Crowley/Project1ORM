@@ -65,6 +65,10 @@ public class Configuration
 		//TODO
 		return this;
 	}
+	public Connection getConnection()
+	{
+		return conn;
+	}
 
 	//getSessionFactory returns the instantiated SessionFactory object
 	public SessionFactory getSessionFactory()

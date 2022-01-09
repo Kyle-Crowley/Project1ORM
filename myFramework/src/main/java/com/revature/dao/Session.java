@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class Session 
@@ -88,12 +89,34 @@ public class Session
 	 * takes in a prepared statement from the user and returns
 	 * the result set back, returns null if result set is null
 	 * or errors occur
+	 * 
+	 * DOES NOT TAKE PRIMITIVE TYPES
 	 */
-	public ResultSet customQuery(PreparedStatement customStatement)
+	public ResultSet customQuery(String query,List<Object> values)
 	{
 		try 
 		{
+			PreparedStatement customStatement = conn.prepareStatement(query);
+			
+			if(!values.isEmpty())//check values for values
+			{
+				for(int i = 0; i < values.size(); i++) // insert values to statement, check for data type :/
+				{
+					
+					if(values.get(i) instanceof Object)
+					{
+						customStatement.setObject(i+1,(Object) values.get(i));
+					}
+					else
+					{
+						System.out.println("not a primitive object wrapper");
+					}
+				}
+			}
+			
+			
 			ResultSet rs;
+			
 			if((rs = customStatement.executeQuery()) != null)
 			{
 				return rs;
