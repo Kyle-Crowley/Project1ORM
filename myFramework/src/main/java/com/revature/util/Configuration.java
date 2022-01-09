@@ -29,7 +29,7 @@ public class Configuration
 	}
 
 
-	public Configuration configure(String filename)
+	public Configuration configure(String filename) 
 	{
 		//1. get properties from configuration file and apply
 		Properties prop = new Properties();
@@ -50,14 +50,19 @@ public class Configuration
 		//2. make connection to database
 		try
 		{
-			Connection conn = DriverManager.getConnection(databaseURL, databaseUser, databasePassword);
+			Class.forName("org.postgresql.Driver");
+			conn = DriverManager.getConnection(databaseURL, databaseUser, databasePassword);
 		} catch (SQLException e)
 		{
 			System.out.println("Connection Failed");
 			e.printStackTrace();
-		}
-		//3. read meta models from project and create or update tables in database
+		} catch (ClassNotFoundException e) {
+			System.out.println("Database driver was not found");
+			e.printStackTrace();
+		} 
 		
+		//3. read meta models from project and create or update tables in database
+		//TODO
 		return this;
 	}
 
