@@ -13,6 +13,7 @@ public class EntityHandler
 	
 	public EntityHandler addAnnotatedClass(Class metaClass)
 	{
+		System.out.println("Adding annotated class");
 		if(metaModelList == null)
 			metaModelList = new LinkedList<>();
 		

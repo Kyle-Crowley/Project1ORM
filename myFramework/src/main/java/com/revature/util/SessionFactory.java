@@ -13,8 +13,27 @@ public class SessionFactory
 		
 	}
 	
-	public Session createSession()
+	
+	
+	public SessionFactory(String databaseURL, String databaseUser, String databasePassword) 
 	{
-		return new Session();
+		super();
+		this.databaseURL = databaseURL;
+		this.databaseUser = databaseUser;
+		this.databasePassword = databasePassword;
+	}
+
+
+
+	public Session createSession() //create a session object and provide a connection object
+	{
+		Session newSession = new Session();
+		newSession.getConnection(databaseURL, databaseUser, databasePassword);
+		return newSession;
+	}
+	
+	public void checkConnection(Session thisSession)
+	{
+		thisSession.getConnection(databaseURL, databaseUser, databasePassword);
 	}
 }

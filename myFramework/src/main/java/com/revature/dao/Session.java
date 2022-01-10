@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import org.postgresql.util.PSQLException;
+
 public class Session 
 {
 	private static Connection conn = null;
@@ -18,15 +20,13 @@ public class Session
 		super();
 	}
 	
-	public Session createSession(String databaseURL,String databaseUser,String databasePassword)
+	public void getConnection(String databaseURL,String databaseUser,String databasePassword) //attempt connect to db, if not already connected
 	{
-		//right now the session only needs to create a connection to initialize itself
-		//establish connection with database
 		try 
 		{
 			if(conn != null && !conn.isClosed())
 			{
-				return this; //TODO: if any other things are added to session remove the return
+				return;
 			}
 			else
 			{
@@ -38,9 +38,6 @@ public class Session
 			System.out.println("Couldn't establish connection with database");
 			e.printStackTrace();
 		}
-		
-		//return reference to this object once done
-		return this;
 	}
 	
 	
@@ -58,8 +55,10 @@ public class Session
 	 * creatSQLQuery() - maybe? if it's not overly complex
 	 */
 	
-	public int save()
+	public int save(Object obj)
 	{
+		
+		//insert statement
 		return 0;
 	}
 	
@@ -96,6 +95,10 @@ public class Session
 	{
 		try 
 		{
+			if(conn == null)
+			{
+				
+			}
 			PreparedStatement customStatement = conn.prepareStatement(query);
 			
 			if(!values.isEmpty())//check values for values
@@ -116,7 +119,6 @@ public class Session
 			
 			
 			ResultSet rs;
-			
 			if((rs = customStatement.executeQuery()) != null)
 			{
 				return rs;
@@ -126,7 +128,11 @@ public class Session
 				return null;
 			}	
 			
-		} catch (SQLException e) 
+		} catch (PSQLException e) 
+		{
+			System.out.println("No results returned by query!");
+			return null;
+		} catch(SQLException e)
 		{
 			e.printStackTrace();
 			return null;

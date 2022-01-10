@@ -1,6 +1,8 @@
 package com.revature.util.metamodels;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class MetaModel<T>
 	private PrimaryKeyField primaryKeyField = null;
 	private List<ColumnField> columnFields;
 	private List<ForeignKeyField> foreignKeyFields;
+	private EntityField entityField;
 
 	public static MetaModel<Class<?>> of(Class<?> metaClass)
 	{
@@ -32,9 +35,34 @@ public class MetaModel<T>
 
 	public MetaModel(Class<?> metaClass)
 	{
-		this.metaClass = metaClass;
+		this.setMetaClass(metaClass);
 		this.columnFields = new LinkedList<>();
 		this.foreignKeyFields = new LinkedList<>();
+	}
+	
+	public EntityField getEntityType()
+	{
+		Field[] fields = getMetaClass().getDeclaredFields();
+		
+		
+		
+		
+		for (Field field : fields)
+		{
+			Entity column = field.getAnnotation(Entity.class);
+
+			if (column != null)
+			{
+				// if it isn't null, instantiate a new ColumnField object
+				entityField= new EntityField(field);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		
+		return entityField;
 	}
 
 	public List<ColumnField> getColumns()
@@ -42,8 +70,8 @@ public class MetaModel<T>
 		// this method returns all the properties of the class that are marked with
 		// @Column annotation
 
-		Field[] fields = metaClass.getDeclaredFields();
-
+		Field[] fields = getMetaClass().getDeclaredFields();
+		
 		// for each field within the above Field[], check if it has the Column annotation
 		for (Field field : fields)
 		{
@@ -60,7 +88,7 @@ public class MetaModel<T>
 		// if columns fields are all empty 
 		if (columnFields.isEmpty())
 		{
-			throw new RuntimeException("No columns found in: " + metaClass.getName());
+			return Collections.emptyList();
 		}
 
 		return columnFields;
@@ -73,7 +101,7 @@ public class MetaModel<T>
 			return primaryKeyField;
 		}
 		// capture an array of its fields
-		Field[] fields = metaClass.getDeclaredFields();
+		Field[] fields = getMetaClass().getDeclaredFields();
 		// check if the primaryKeyColumn comes back as NOT null
 		for (Field field : fields)
 		{
@@ -87,14 +115,14 @@ public class MetaModel<T>
 			}
 		}
 
-		throw new RuntimeException("Did not find a field annotated with @Id in " + metaClass.getName());
+		throw new RuntimeException("Did not find a field annotated with @Id in " + getMetaClass().getName());
 	}
 
 	
 	public List<ForeignKeyField> getForeignKeys()
 	{
 
-		Field[] fields = metaClass.getDeclaredFields();
+		Field[] fields = getMetaClass().getDeclaredFields();
 
 		for (Field field : fields)
 		{
@@ -109,7 +137,7 @@ public class MetaModel<T>
 
 		if (foreignKeyFields.isEmpty())
 		{
-			throw new RuntimeException("No foreign keys found in: " + metaClass.getName());
+			return Collections.emptyList();
 		}
 
 		return foreignKeyFields;
@@ -118,11 +146,19 @@ public class MetaModel<T>
 	
 	public String getSimpleClassName() 
 	{
-		return metaClass.getSimpleName();
+		return getMetaClass().getSimpleName();
 	}
 	
 	public String getClassName() {
-		return metaClass.getName();
+		return getMetaClass().getName();
+	}
+
+	public Class<?> getMetaClass() {
+		return metaClass;
+	}
+
+	public void setMetaClass(Class<?> metaClass) {
+		this.metaClass = metaClass;
 	}
 	
 

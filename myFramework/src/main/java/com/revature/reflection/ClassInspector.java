@@ -6,10 +6,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ClassInspector
 {
-	public static void inspectClass(Class<?> metaClass)
+	public static void inspectClass(Class<?> metaClass) throws IllegalArgumentException, IllegalAccessException
 	{
 		listPublicConstructors(metaClass);
 		listNonPublicConstructors(metaClass);
@@ -46,21 +48,24 @@ public class ClassInspector
 		}
 	}
 	
-	public static void listPublicFields(Class<?> metaClass)
+	public static List<Object> listPublicFields(Class<?> metaClass) throws IllegalArgumentException, IllegalAccessException
 	{
+		List<Object> classVar = new LinkedList<Object>();
 		System.out.println("Printing public fields of the " + metaClass.getName());
-		Field[] fields = metaClass.getFields();
+		Field[] fields = metaClass.getDeclaredFields();
 		if (fields.length == 0) 
 		{
 			System.out.println("There are no public fields in " + metaClass.getName());
 		}
 		for (Field field : fields) 
 		{
+			classVar.add(field.get(metaClass));
 			System.out.println("\tField name: " + field.getName());
 			System.out.println("\tField type: " + field.getType());
 			System.out.println("\tIs field primitive? :: " + field.getType().isPrimitive());
 			System.out.println("\tModifiers bit value: " + Integer.toBinaryString(field.getModifiers()) + "\n");
 		}
+		return classVar;
 	}
 	
 	public static void listNonPublicFields(Class<?> metaClass)

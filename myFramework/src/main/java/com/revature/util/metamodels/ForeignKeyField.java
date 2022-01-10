@@ -7,6 +7,7 @@ import com.revature.annotations.ForeignKeyColumn;
 public class ForeignKeyField
 {
 	private Field field;
+	private Class<?> reference;
 	
 	public ForeignKeyField(Field field)
 	{
@@ -16,6 +17,7 @@ public class ForeignKeyField
 					+ getName() + "is not annotated with @JoinColumn");
 		}
 		this.field = field;
+		
 	}
 	
 	public String getName() 
@@ -31,5 +33,10 @@ public class ForeignKeyField
 	public String getColumnName() 
 	{
 		return field.getAnnotation(ForeignKeyColumn.class).columnName();
+	}
+	
+	public Class<?> getReference()
+	{
+		return field.getAnnotation(ForeignKeyColumn.class).reference();
 	}
 }
